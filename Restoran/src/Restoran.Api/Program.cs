@@ -1,8 +1,15 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Api.Data;
 using Restaurant.Api.Repositories;
 using Restaurant.Api.Services;
+<<<<<<< HEAD
 using Serilog;
+=======
+using Restaurant.Api.Validators;
+
+>>>>>>> main
 
 namespace Restaurant.Api
 {
@@ -16,7 +23,28 @@ namespace Restaurant.Api
                 .WriteTo.Console()
                 .CreateBootstrapLogger();
 
+<<<<<<< HEAD
             try
+=======
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IFoodRepository, FoodRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<FoodCreateDtoValidator>();
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+>>>>>>> main
             {
                 Log.Information("Restaurant API ishga tushmoqda...");
 
